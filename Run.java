@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,16 +13,16 @@ public class Run {
         /*System.out.print("|");
         for (int i = 0; i < numeros.length; i++) {
             System.out.print(numeros[i]+"|");
-        }
-        System.out.println();*/
-        bubbleSort(numeros);
-        selectionSort(numeros);
+        }*/
+        System.out.println();
+        bubbleSort(Arrays.copyOf(numeros, numeros.length));
+        selectionSort(Arrays.copyOf(numeros, numeros.length));
 
         //String[] cadenas = {"hola","mundo","nombre","Nombre","Adios","Mundo"};
         //selectionStrings(cadenas);
         
-        insertionSort(numeros);
-
+        insertionSort(Arrays.copyOf(numeros, numeros.length));
+        shellSort(Arrays.copyOf(numeros, numeros.length));
     }
       
     public static void insertionSort(int[] numeros){
@@ -83,6 +84,24 @@ public class Run {
         }
         long end = System.currentTimeMillis();
         System.out.println("Tiempo bubble: " + (end - start));
+    }
+    public static void shellSort(int[] numeros){
+        long start = System.currentTimeMillis();
+        int n = numeros.length;
+        for (int gap = n/2; gap >0; gap=gap/2) {
+            for (int i = gap; i < numeros.length; i++) {
+                int aux = numeros[i];
+                int j = i;
+                while (j>=gap&&aux<numeros[j-gap]) {
+                    numeros[j] = numeros[j-gap];
+                    j=j-gap;
+                }
+                numeros[j] = aux;
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Tiempo shell: " + (end - start));
+        
     }
 
 }
